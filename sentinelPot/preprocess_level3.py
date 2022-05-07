@@ -471,7 +471,8 @@ def s1_harmonic_each(tile_index, config_path, logger,
 
 
 def s1_harmonic_batch(config_path, gf_out_format='ENVI',
-                      initial=False, parallel_tile=False,
+                      # initial=False, 
+                      parallel_tile=False,
                       big_ram=False, thread_clip=2):
     """Batch fit harmonic regression coefficients.
 
@@ -479,7 +480,6 @@ def s1_harmonic_batch(config_path, gf_out_format='ENVI',
         config_path (str): the path of config yaml.
         gf_out_format (str); the format of output.
         Now it only supports [ENVI, GTiff].
-        initial (bool): if the script is run initially.
         parallel_tile (bool): if to do parallel over tiles.
         big_ram (bool): if has big ram to use.
         thread_clip(int): the thread number for clipping.
@@ -504,11 +504,11 @@ def s1_harmonic_batch(config_path, gf_out_format='ENVI',
     # Harmonic regression of sentinel-1
     sc = SentinelClient(config)
 
-    if initial:
-        with open(join(os.path.dirname(__file__), 's1_gather_tile.R'), 'r') as f:
-            string = f.read()
-        func = STAP(string, "func")
-        func.split_catalog(config_path)
+    # if initial:
+    #     with open(join(os.path.dirname(__file__), 's1_gather_tile.R'), 'r') as f:
+    #         string = f.read()
+    #     func = STAP(string, "func")
+    #     func.split_catalog(config_path)
 
     # Determine thread number to be used
     threads_number = config['parallel']['threads_number']
