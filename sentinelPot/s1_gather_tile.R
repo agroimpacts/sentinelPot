@@ -69,6 +69,7 @@ gather_image <- function(tile_no, config_dir, num_threads = 1) {
   # capture footprints spatially
   # tile_id <- tiles %>% slice(which(tiles$tile == tile_no)) %>% pull(tile)
   bry <- tiles %>% filter(tile == tile_no)
+  tarea <- as.numeric(st_area(bry) / 10000)  # area of tile
   tile_id <- bry %>% pull(tile)
   ftps_sub <- st_crop(s1_footprints, bry) %>%
     select(id, title, startDate) %>%
