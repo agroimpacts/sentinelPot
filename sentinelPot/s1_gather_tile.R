@@ -72,9 +72,9 @@ gather_image <- function(tile_no, config_dir, num_threads = 1) {
   tarea <- as.numeric(st_area(bry) / 10000)  # area of tile
   tile_id <- bry %>% pull(tile)
   ftps_sub <- st_crop(s1_footprints, bry) %>%
-    select(id, title, startDate) %>%
-    mutate(date = lubridate::as_date(startDate)) %>%
-    arrange(date) %>% select(-startDate) %>%
+    dplyr::select(id, title, startDate) %>%
+    mutate(date = gsub("-", "", lubridate::as_date(startDate))) %>%
+    arrange(date) %>% dplyr::select(-startDate) %>%
     mutate(area = as.numeric(st_area(.) / 10000)) %>%
     group_by(date) %>%
     mutate(sarea = sum(area)) %>%
