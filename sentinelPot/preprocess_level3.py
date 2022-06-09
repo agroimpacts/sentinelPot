@@ -336,13 +336,17 @@ def harmonic_fitting_br(tile_index, pol, config):
     freq = config['harmonic']["harmonic_frequency"]
     num_pair = config['harmonic']["harmonic_pairs"]
     alpha = config['harmonic']["alpha"]
+    start = config['harmonic']["date_start"]
 
     # process
     # Get variables and target
     fnames = os.listdir(dir_ard)
-    fnames = list(filter(lambda fname: ".img" in fname and pol in fname and ".aux.xml" not in fname, fnames))
+    #fnames = list(filter(lambda fname: ".img" in fname and pol in fname and ".aux.xml" not in fname, fnames))
+    fnames = list(filter(lambda fname: (".img" in fname and pol in fname and ".aux.xml" not in fname) |
+                                               ('.tif' in fname and pol in fname), fnames))
     fnames = _sort_fnames(fnames)
-    days = _get_doy(fnames, freq)
+    # days = _get_doy(fnames, freq)
+    days = _get_doy(fnames, freq, start)
     x = _getVariable(freq, days, 1 + num_pair * 2)
     del days
 

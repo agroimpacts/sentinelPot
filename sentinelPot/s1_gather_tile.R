@@ -43,8 +43,8 @@ gather_image <- function(tile_no, config_dir, num_threads = 1) {
   dst_dir <- config$dirs$dst_dir
   log_dir <- file.path(dst_dir, 'logs')
   if (!dir.exists(log_dir)) dir.create(log_dir, showWarnings = F)
-  local_path <- file.path(dst_dir, config$dirs$processed_path)
-
+  local_path <- config$dirs$processed_path
+  
   tiles <- st_read(config$sentinel$geojson, quiet = T) %>%
     dplyr::select(tile)
   s1_footprints <- st_read(config$sentinel$catalog_json,
