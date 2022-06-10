@@ -577,8 +577,7 @@ def s2_wasp(tile_id, config, logger=None):
         config (dict): the dictionary of parameters for fmask.
     """
     # Set paths
-    processed_path = join(config['dirs']['dst_dir'],
-                          config['dirs']['processed_path'])
+    processed_path = jconfig['dirs']['processed_path']
     level3_processed_path = join(config['dirs']['dst_dir'],
                                  config['dirs']['level3_processed_path'])
     # tmp_wasp_path = join(config['dirs']['dst_dir'], 'tmp_wasp')
@@ -683,8 +682,7 @@ def s2_wasp_batch(config_path):
     config = _load_yaml(config_path)
     # Set up logger
     dst_dir = config['dirs']['dst_dir']
-    processed_path = join(config['dirs']['dst_dir'],
-                          config['dirs']['processed_path'])
+    processed_path = config['dirs']['processed_path']
     log_dir = join(dst_dir, 'logs')
     if not exists(log_dir):
         os.makedirs(log_dir)
