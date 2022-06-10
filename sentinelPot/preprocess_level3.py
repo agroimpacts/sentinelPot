@@ -597,7 +597,10 @@ def s2_wasp(tile_id, config, logger=None):
     fnames_all = list(filter(lambda fname: join(processed_path, fname).endswith('zip'), fnames_all))
     zips = list(filter(lambda fname: tile_id in fname, fnames_all))
     for zip_file in zips:
-        _unzip_file(zip_file, processed_path)
+        try:
+            _unzip_file(zip_file, processed_path)
+        except:
+            logger.error(f'unzip of {zip_file} failed')
 
     # Format tile_id
     time_series = config['wasp']['time_series']
